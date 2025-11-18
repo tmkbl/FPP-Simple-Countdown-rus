@@ -460,6 +460,9 @@ function getMessageText(){
         
 	messageText += messagePostText + " " + eventName;
 	
+	// Убираем лишние пробелы
+	messageText = messageText.replace(/\s+/g, ' ').trim();
+	
 	return messageText;
 }
 
