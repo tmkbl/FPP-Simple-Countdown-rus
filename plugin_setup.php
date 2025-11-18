@@ -347,6 +347,25 @@ function updateFont(){
 	updateOutputText();
 }
 
+// Функция для получения правильной формы слова
+function getRussianPlural($number, $form1, $form2, $form5) {
+    $number = abs($number) % 100;
+    if ($number >= 11 && $number <= 19) {
+        return $form5;
+    }
+    
+    $number = $number % 10;
+    if ($number == 1) {
+        return $form1;
+    }
+    
+    if ($number >= 2 && $number <= 4) {
+        return $form2;
+    }
+    
+    return $form5;
+}
+
 function getMessageText(){
 	var elapsed = false; 
 	var eventName = document.getElementById("EVENT_NAME").value;
@@ -398,57 +417,35 @@ function getMessageText(){
 	messageText = messagePreText;
 
 	if (yearsToDate >= 1){
-		if (yearsToDate >=2){
-			messageText += " " + yearsToDate + " years ";
-		}else {
-			messageText += " " + yearsToDate + " year ";
-		}
+			$yearForm = getRussianPlural(yearsToDate, "год", "года", "лет");
+    		messageText .= intval(yearsToDate) . " " . $yearForm . " ";
 	}else{
 		messageText += " ";
 	}
 
 	if (daysToDate >= 1){
-		if (daysToDate >=2){
-			messageText += daysToDate + " дней ";
-		} else {
-			messageText += daysToDate + " день ";			
-		}
+		$dayForm = getRussianPlural(daysToDate, "день", "дня", "дней");
+    	messageText .= intval(daysToDate) . " " . $dayForm . " ";
 
 		if(incHours == true){			
-			if (hoursToDate >=2) {
-				messageText += hoursToDate + " hours ";
-			} else {
-				if (hoursToDate >= 1) {
-					messageText += hoursToDate + " hour ";
-				}
-			}
+			$hourForm = getRussianPlural(hoursToDate, "час", "часа", "часов");
+            messageText .= intval(hoursToDate) . " " . $hourForm . " ";
 		}
 		
 		if(incMin == true){
 			if(incHours == false){
 				minutesToDate += hoursToDate*60;
 			}
-			if (minutesToDate >=2) {
-				messageText += minutesToDate + " minutes ";
-			} else {
-				messageText += minutesToDate + " minute ";
-			}	
+			$minuteForm = getRussianPlural(minutesToDate, "минута", "минуты", "минут");
+            messageText .= intval(minutesToDate) . " " . $minuteForm . " ";
 		}	
 	}else {
 			
-		if (hoursToDate >=2) {
-			messageText += hoursToDate + " hours ";
-		} else {
-			if (hoursToDate >= 1) {
-					messageText += hoursToDate + " hour ";
-			}
-		}
+		$hourForm = getRussianPlural(hoursToDate, "час", "часа", "часов");
+        messageText .= intval(hoursToDate) . " " . $hourForm . " ";
 		
-		if (minutesToDate >=2) {
-			messageText += minutesToDate + " minutes ";
-		} else {
-			messageText += minutesToDate + " minute ";
-		}	
+		$minuteForm = getRussianPlural(minutesToDate, "минута", "минуты", "минут");
+        messageText .= intval(minutesToDate) . " " . $minuteForm . " ";
 	}           
         
 	messageText += messagePostText + " " + eventName;
