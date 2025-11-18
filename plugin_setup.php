@@ -34,7 +34,7 @@ if (isset($pluginSettings['COUNT_UP'])){
 	
 }
 
-$gitURL = "https://github.com/tmkbl/FPP-Simple-Countdown-rus.git";
+$gitURL = "https://github.com/tmkbl/FPP-Simple-Countdown-rus/blob/main/pluginInfo.json.git";
 
 
 ?>
@@ -347,25 +347,6 @@ function updateFont(){
 	updateOutputText();
 }
 
-// Функция для получения правильной формы слова
-function getRussianPlural(number, form1, form2, form5) {
-    number = abs(number) % 100;
-    if (number >= 11 && number <= 19) {
-        return form5;
-    }
-    
-    number = number % 10;
-    if (number == 1) {
-        return form1;
-    }
-    
-    if (number >= 2 && number <= 4) {
-        return form2;
-    }
-    
-    return form5;
-}
-
 function getMessageText(){
 	var elapsed = false; 
 	var eventName = document.getElementById("EVENT_NAME").value;
@@ -392,10 +373,26 @@ function getMessageText(){
 	var messageText;
 	var messagePreText;
 	var messagePostText;
-	var yearForm;
-	var dayForm;
-	var hourForm;
-	var minuteForm;
+	
+	// Функция для получения правильной формы слова на русском
+	function getRussianPlural(number, form1, form2, form5) {
+		number = Math.abs(number) % 100;
+		if (number >= 11 && number <= 19) {
+			return form5;
+		}
+		
+		number = number % 10;
+		if (number === 1) {
+			return form1;
+		}
+		
+		if (number >= 2 && number <= 4) {
+			return form2;
+		}
+		
+		return form5;
+	}
+
 	if (rawTimeDiff<0){
 		elapsed= true;
 	}
@@ -406,7 +403,7 @@ function getMessageText(){
 				
 	yearsToDate= Math.floor(Math.abs(yearsToDate));
 	daysToDate= Math.floor(Math.abs(daysToDate));
-	hoursToDate =Math.floor(Math.abs(hoursToDate));
+	hoursToDate = Math.floor(Math.abs(hoursToDate));
 	minutesToDate= Math.floor(Math.abs(minutesToDate));
 	
 	if (elapsed && countup){
@@ -420,39 +417,52 @@ function getMessageText(){
 
 	messageText = messagePreText;
 
+	// Обработка лет
 	if (yearsToDate >= 1){
-			yearForm = getRussianPlural(yearsToDate, "год", "года", "лет");
-    		messageText .= intval(yearsToDate) . " " . yearForm . " ";
-	}else{
-		messageText += " ";
+		var yearForm = getRussianPlural(yearsToDate, "год", "года", "лет");
+		messageText += " " + yearsToDate + " " + yearForm + " ";
 	}
 
+	// Обработка дней, часов и минут
 	if (daysToDate >= 1){
-		dayForm = getRussianPlural(daysToDate, "день", "дня", "дней");
-    	messageText .= intval(daysToDate) . " " . dayForm . " ";
-
+		var dayForm = getRussianPlural(daysToDate, "день", "дня", "дней");
+		messageText += daysToDate + " " + dayForm + " ";
+		
 		if(incHours == true){			
-			hourForm = getRussianPlural(hoursToDate, "час", "часа", "часов");
-            messageText .= intval(hoursToDate) . " " . hourForm . " ";
+			if (hoursToDate >= 1) {
+				var hourForm = getRussianPlural(hoursToDate, "час", "часа", "часов");
+				messageText += hoursToDate + " " + hourForm + " ";
+			}
 		}
 		
 		if(incMin == true){
+			var minutesToShow = minutesToDate;
 			if(incHours == false){
-				minutesToDate += hoursToDate*60;
+				minutesToShow += hoursToDate * 60;
 			}
-			minuteForm = getRussianPlural(minutesToDate, "минута", "минуты", "минут");
-            messageText .= intval(minutesToDate) . " " . minuteForm . " ";
+			if (minutesToShow >= 1) {
+				var minuteForm = getRussianPlural(minutesToShow, "минута", "минуты", "минут");
+				messageText += minutesToShow + " " + minuteForm + " ";
+			}
 		}	
-	}else {
-			
-		hourForm = getRussianPlural(hoursToDate, "час", "часа", "часов");
-        messageText .= intval(hoursToDate) . " " . hourForm . " ";
+	} else {
+		// Если дней нет, показываем часы и минуты
+		if (hoursToDate >= 1) {
+			var hourForm = getRussianPlural(hoursToDate, "час", "часа", "часов");
+			messageText += hoursToDate + " " + hourForm + " ";
+		}
 		
-		minuteForm = getRussianPlural(minutesToDate, "минута", "минуты", "минут");
-        messageText .= intval(minutesToDate) . " " . minuteForm . " ";
+		if (minutesToDate >= 1) {
+			var minuteForm = getRussianPlural(minutesToDate, "минута", "минуты", "минут");
+			messageText += minutesToDate + " " + minuteForm + " ";
+		}
 	}           
         
 	messageText += messagePostText + " " + eventName;
+	
+	// Убираем лишние пробелы
+	messageText = messageText.replace(/\s+/g, ' ').trim();
+	
 	return messageText;
 }
 
