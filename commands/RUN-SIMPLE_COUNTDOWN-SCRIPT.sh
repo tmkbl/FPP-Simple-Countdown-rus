@@ -3,4 +3,4 @@
 #Script to run countdown
 #Created by Simple-Countdown
 #
-/usr/bin/php /home/fpp/media/plugins/FPP-Simple-Countdown/runCountdown.php
+/usr/bin/php /home/fpp/media/plugins/FPP-Simple-Countdown-rus/runCountdown.php
