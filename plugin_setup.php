@@ -34,7 +34,7 @@ if (isset($pluginSettings['COUNT_UP'])){
 	
 }
 
-$gitURL = "https://github.com/FalconChristmas/FPP-Simple-Countdown.git";
+$gitURL = "https://github.com/tmkbl/FPP-Simple-Countdown-rus.git";
 
 
 ?>
