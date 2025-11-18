@@ -235,62 +235,67 @@ if ($elapsed){
 
 logEntry( "Difference between ".date('Y-m-d H:i:s',$date1)." and ".date('Y-m-d H:i:s',$date2)." is:".$y." years ".$d." days ".$h." hours ".$m." minutes");
 
-$messageText = $messagePreText;
-if ($y >= 1){
-	if ($y >=2){
-		$messageText .= intval($y). " years ";
-	} else {
-		$messageText .= intval($y). " year ";
-	}
-} else {
-	$messageText .= " ";
+
+// Функция для получения правильной формы слова
+function getRussianPlural($number, $form1, $form2, $form5) {
+    $number = abs($number) % 100;
+    if ($number >= 11 && $number <= 19) {
+        return $form5;
+    }
+    
+    $number = $number % 10;
+    if ($number == 1) {
+        return $form1;
+    }
+    
+    if ($number >= 2 && $number <= 4) {
+        return $form2;
+    }
+    
+    return $form5;
 }
 
-if ($d >= 1){
-	if ($d >=2){
-		$messageText .= intval($d). " дней ";
-	} else {
-		$messageText .= intval($d). " день ";
-	}
-	if($includeHours == "ON"){
-		if ($h >=2) {
-			$messageText .= intval($h). " часов ";
-		} else {
-			if ($h >= 1) {
-				$messageText .= intval($h). " час ";
-			}
-		}
-	}
-	if($includeMinutes == "ON"){
-		if($includeHours == "OFF"){
-			$m += $h *60;
-		}
-		if ($m >=2) {
-			$messageText .= intval($m). " minutes ";
-		} else {
-			$messageText .= intval($m). " minute ";
-		}		
-	}
-}else {
-	if ($h >=2) {
-			$messageText .= intval($h). " hours ";
-		} else {
-			if ($h >= 1) {
-				$messageText .= intval($h). " hour ";
-			}
-		}
-	if ($m >=2) {
-			$messageText .= intval($m). " minutes ";
-		} else {
-			$messageText .= intval($m). " minute ";
-		}	
-	
-} 
-if ($elapsed && $countup!="ON"){
-		$messageText= $completedText;
-	}else{
-		$messageText .= " ".$messagePostText. " ".$eventName;
-	}
+
+$messageText = $messagePreText;
+if ($y >= 1) {
+    $yearForm = getRussianPlural($y, "год", "года", "лет");
+    $messageText .= intval($y) . " " . $yearForm . " ";
+} else {
+    $messageText .= "";
+}
+
+if ($d >= 1) {
+    $dayForm = getRussianPlural($d, "день", "дня", "дней");
+    $messageText .= intval($d) . " " . $dayForm . " ";
+    
+    if($includeHours == "ON") {
+        if ($h >= 1) {
+            $hourForm = getRussianPlural($h, "час", "часа", "часов");
+            $messageText .= intval($h) . " " . $hourForm . " ";
+        }
+    }
+    
+    if($includeMinutes == "ON") {
+        if($includeHours == "OFF") {
+            $m += $h * 60;
+        }
+        if ($m >= 1) {
+            $minuteForm = getRussianPlural($m, "минута", "минуты", "минут");
+            $messageText .= intval($m) . " " . $minuteForm . " ";
+        }
+    }
+} else {
+    // Если дней нет, показываем часы и минуты
+    if ($h >= 1) {
+        $hourForm = getRussianPlural($h, "час", "часа", "часов");
+        $messageText .= intval($h) . " " . $hourForm . " ";
+    }
+    
+    if ($m >= 1) {
+        $minuteForm = getRussianPlural($m, "минута", "минуты", "минут");
+        $messageText .= intval($m) . " " . $minuteForm . " ";
+    }
+}
 
 $messageText = preg_replace('!\s+!', ' ', $messageText);
 
