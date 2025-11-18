@@ -248,16 +248,16 @@ if ($y >= 1){
 
 if ($d >= 1){
 	if ($d >=2){
-		$messageText .= intval($d). " days ";
+		$messageText .= intval($d). " дней ";
 	} else {
-		$messageText .= intval($d). " day ";
+		$messageText .= intval($d). " день ";
 	}
 	if($includeHours == "ON"){
 		if ($h >=2) {
-			$messageText .= intval($h). " hours ";
+			$messageText .= intval($h). " часов ";
 		} else {
 			if ($h >= 1) {
-				$messageText .= intval($h). " hour ";
+				$messageText .= intval($h). " час ";
 			}
 		}
 	}
