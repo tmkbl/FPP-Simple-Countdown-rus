@@ -3,9 +3,9 @@
     "name": "Simple Countdown RUS",
     "author": "Rick Harris",
     "description": "This plugin will give you a countdown to a specified date. This plugin is standalone and does not require any other plugins to run.",
-    "homeURL": "https://github.com/FalconChristmas/FPP-Simple-Countdown-rus",
-    "srcURL": "https://github.com/FalconChristmas/FPP-Simple-Countdown-rus.git",
-    "bugURL": "https://github.com/FalconChristmas/FPP-Simple-Countdown-rus/issues",
+    "homeURL": "https://github.com/tmkbl/FPP-Simple-Countdown-rus",
+    "srcURL": "https://github.com/tmkbl/FPP-Simple-Countdown-rus.git",
+    "bugURL": "https://github.com/tmkbl/FPP-Simple-Countdown-rus/issues",
     "allowUpdates": 1,
     "versions": [
         {
