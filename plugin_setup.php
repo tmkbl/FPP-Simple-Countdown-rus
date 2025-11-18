@@ -420,18 +420,18 @@ function getMessageText(){
 	// Обработка лет
 	if (yearsToDate >= 1){
 		var yearForm = getRussianPlural(yearsToDate, "год", "года", "лет");
-		messageText += " " + yearsToDate + " " + yearForm + " ";
+		messageText += " " + yearsToDate + " " + yearForm;
 	}
 
 	// Обработка дней, часов и минут
 	if (daysToDate >= 1){
 		var dayForm = getRussianPlural(daysToDate, "день", "дня", "дней");
-		messageText += daysToDate + " " + dayForm + " ";
+		messageText += daysToDate + " " + dayForm;
 		
 		if(incHours == true){			
 			if (hoursToDate >= 1) {
 				var hourForm = getRussianPlural(hoursToDate, "час", "часа", "часов");
-				messageText += hoursToDate + " " + hourForm + " ";
+				messageText += hoursToDate + " " + hourForm;
 			}
 		}
 		
@@ -442,19 +442,19 @@ function getMessageText(){
 			}
 			if (minutesToShow >= 1) {
 				var minuteForm = getRussianPlural(minutesToShow, "минута", "минуты", "минут");
-				messageText += minutesToShow + " " + minuteForm + " ";
+				messageText += minutesToShow + " " + minuteForm;
 			}
 		}	
 	} else {
 		// Если дней нет, показываем часы и минуты
 		if (hoursToDate >= 1) {
 			var hourForm = getRussianPlural(hoursToDate, "час", "часа", "часов");
-			messageText += hoursToDate + " " + hourForm + " ";
+			messageText += hoursToDate + " " + hourForm;
 		}
 		
 		if (minutesToDate >= 1) {
 			var minuteForm = getRussianPlural(minutesToDate, "минута", "минуты", "минут");
-			messageText += minutesToDate + " " + minuteForm + " ";
+			messageText += minutesToDate + " " + minuteForm;
 		}
 	}           
         
