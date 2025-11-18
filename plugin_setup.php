@@ -409,9 +409,9 @@ function getMessageText(){
 
 	if (daysToDate >= 1){
 		if (daysToDate >=2){
-			messageText += daysToDate + " days ";
+			messageText += daysToDate + " дней ";
 		} else {
-			messageText += daysToDate + " day ";			
+			messageText += daysToDate + " день ";			
 		}
 
 		if(incHours == true){			
