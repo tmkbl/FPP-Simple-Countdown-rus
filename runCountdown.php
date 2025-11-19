@@ -299,6 +299,8 @@ if ($d >= 1) {
 
 $messageText = preg_replace('!\s+!', ' ', $messageText);
 
+$messageText .= $messagePostText
+
 logEntry("messageText= ".$messageText);
 //error_log("RunEventDate.php- messageText= ".$messageText);
 logEntry("ScrollText options-hostLocation=  ".$hostLocation. " overlayModel= ".$overlayModel. " Position= " .$Position. " Font = " .$font. " fontsize= " .$fontSize. " fontColor= " .$color. " scrollSpeed= " .$scrollSpeed. " Auto= " .$auto." duration= " .$duration);
