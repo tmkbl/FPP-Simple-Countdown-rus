@@ -1,6 +1,6 @@
 [
-    { "name": "Simple Countdown-Run",
-      "script": "RUN-SIMPLE_COUNTDOWN-SCRIPT.sh",
+    { "name": "Simple Countdown-Run RUS",
+      "script": "RUN-SIMPLE_COUNTDOWN-SCRIPT-RUS.sh",
       "args": [
       ]
     }
