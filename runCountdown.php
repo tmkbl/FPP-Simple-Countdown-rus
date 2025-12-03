@@ -297,7 +297,7 @@ if ($d >= 1) {
     }
 }
 
-$messageText = preg_replace('!\s+!', ' ', $messageText);
+$messageText = trim(preg_replace('!\s+!', ' ', $messageText));
 
 $messageText .= $messagePostText;
 
